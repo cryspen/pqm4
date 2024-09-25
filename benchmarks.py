@@ -12,6 +12,9 @@ if __name__ == "__main__":
                                                 '--nospeed',
                                                 '--nohashing',
                                                 '--nosize']]
+
+        schemes = list(filter(lambda scheme: "kyber" in scheme or "dilithium" in scheme, map(lambda impl: impl.scheme , settings.get_implementations())))
+
         if "--nostack" not in rest:
             test = mupq.StackBenchmark(settings, platform)
             if test.test_all(schemes):
