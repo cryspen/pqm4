@@ -12,7 +12,7 @@ def parse_arguments():
         "--platform",
         help="The PQM4 platform",
         choices=["stm32f4discovery", "nucleo-l476rg", "nucleo-l4r5zi", "cw308t-stm32f3", "cw308t-stm32f415", "mps2-an386"],
-        default="stm32f4discovery",
+        default="nucleo-l4r5zi",
     )
     parser.add_argument(
         "-o",
@@ -27,8 +27,8 @@ def parse_arguments():
     parser.add_argument(
         "--no-aio", help="Disable all-in-one compilation", default=False, action="store_true"
     )
-    parser.add_argument("-u", "--uart", default="/dev/ttyUSB0", help="Path to UART output")
-    parser.add_argument("-i", "--iterations", type=int, default=1, help="Number of iterations for benchmarks")
+    parser.add_argument("-u", "--uart", default="/dev/ttyACM0", help="Path to UART output")
+    parser.add_argument("-i", "--iterations", type=int, default=10, help="Number of iterations for benchmarks")
     return parser.parse_known_args()
 
 
