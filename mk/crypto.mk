@@ -11,7 +11,8 @@ SYMCRYPTO_SRC = \
 	common/aes-publicinputs.S \
 	mupq/common/sha2.c \
 	common/crypto_hashblocks_sha512_inner32.s \
-	common/crypto_hashblocks_sha512.c
+	common/crypto_hashblocks_sha512.c \
+    common/randombytes.c
 
 obj/libsymcrypto.a: $(call objs,$(SYMCRYPTO_SRC))
 
