@@ -1132,3 +1132,60 @@ KeccakF1600_StatePermute_RoundLoop:
 	add		sp, #mSize
 	pop		{ r4 - r12, pc }
 
+
+@-----
+@ repeated here so we can use it below, otherwise it would be too far away to be used as immediate value in adr
+.align 8
+KeccakF1600_StatePermute_RoundConstantsWithTerminator2:
+	@		0			1
+		.long 		0x00000001,	0x00000000
+		.long 		0x00000000,	0x00000089
+		.long 		0x00000000,	0x8000008b
+		.long 		0x00000000,	0x80008080
+
+		.long 		0x00000001,	0x0000008b
+		.long 		0x00000001,	0x00008000
+		.long 		0x00000001,	0x80008088
+		.long 		0x00000001,	0x80000082
+
+		.long 		0x00000000,	0x0000000b
+		.long 		0x00000000,	0x0000000a
+		.long 		0x00000001,	0x00008082
+		.long 		0x00000000,	0x00008003
+
+		.long 		0x00000001,	0x0000808b
+		.long 		0x00000001,	0x8000000b
+		.long 		0x00000001,	0x8000008a
+		.long 		0x00000001,	0x80000081
+
+		.long 		0x00000000,	0x80000081
+		.long 		0x00000000,	0x80000008
+		.long 		0x00000000,	0x00000083
+		.long 		0x00000000,	0x80008003
+
+		.long 		0x00000001,	0x80008088
+		.long 		0x00000000,	0x80000088
+		.long 		0x00000001,	0x00008000
+		.long 		0x00000000,	0x80008082
+
+		.long 		0x000000FF	@terminator
+
+
+@----------------------------------------------------------------------------
+@
+@ void KeccakF1600_StatePermute_4Rounds( void *state )
+@
+.align 8
+.global   KeccakF1600_StatePermute_4Rounds
+KeccakF1600_StatePermute_4Rounds:
+	adr		r1, KeccakF1600_StatePermute_RoundConstantsWithTerminator2
+	push	{ r4 - r12, lr }
+	sub		sp, #mSize
+	str		r1, [sp, #mRC]
+	KeccakRound0
+	KeccakRound1
+	KeccakRound2
+	KeccakRound3
+	add		sp, #mSize
+	pop		{ r4 - r12, pc }
+
